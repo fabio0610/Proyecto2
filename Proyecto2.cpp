@@ -88,6 +88,7 @@ void menu(){
                 menu1();
                 break;
             case 3: //acerca de
+                acerca_de();
                 break;
             case 4: //salir
                 break;
