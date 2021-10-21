@@ -1,13 +1,3 @@
-//#include <iostream>
-//#include <string>
-//#include <cstdlib>
-//#include <fstream>
-
-//using namespace::std;
-
-//void configurar_torneo(string nombre, ){
-
-//}
 
 //Bibliotecas a usar en el menu
 #include <iostream>
@@ -51,28 +41,62 @@ int menu_B(){
     cout << "3. Puntaje mas alto si es campeon" << endl;
     cout << "4. Mostrar llave" << endl;
     cout << "5. Mostrar contendientes ordenados de manera descendente" << endl;
+    cout << "6. Volver"<<endl;
     cin >> b;
     return b;
 }
 
-//FUNCION PRINCIPAL
-int main(){
+
+
+void menu1(){
     int opcion_seleccionada = 0;
 
     do{
-        opcion_seleccionada = menu_A;
+        opcion_seleccionada = menu_B();
 
         switch(opcion_seleccionada)
         {
             case 1: //configuracion de juego
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4: //salir
+                break;
+            case 5: //salir
+                break;
+            case 6: //salir
+                break;
+        }
+    }while(opcion_seleccionada < 6);
+}
+
+void menu(){
+    int opcion_seleccionada = 0;
+
+    do{
+        opcion_seleccionada = menu_A();
+
+        switch(opcion_seleccionada)
+        {
+            case 1: //configuracion de juego
+                break;
 
             case 2: //admi de contendientes -> funcion menu B
 
+                menu1();
+                break;
             case 3: //acerca de
-
+                break;
             case 4: //salir
+                break;
         }
-    }while(opcion_seleccionada != 5);
-    
+    }while(opcion_seleccionada < 4);
+}
+
+//FUNCION PRINCIPAL
+int main(){
+    menu();
 
 }
