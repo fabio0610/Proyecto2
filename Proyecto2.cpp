@@ -4,6 +4,31 @@
 #include <string>
 using namespace std;
 
+void admin_contendientes(){
+
+}
+
+void Ingre_ganador(){
+
+}
+
+void choque_contendientes(){
+
+}
+
+void Puntaje_campeon(){
+
+}
+
+void mostrar_llave(){
+
+}
+
+void mostrar_contendientes(){
+
+}
+
+
 //acerca de
 void acerca_de(){
     cout << "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*" << endl;
