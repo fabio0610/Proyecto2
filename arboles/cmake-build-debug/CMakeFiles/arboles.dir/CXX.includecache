@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/fabio/Escritorio/arboles/main.cpp
+iostream
+-
+string
+-
+cmath
+-
+node.h
+/home/fabio/Escritorio/arboles/node.h
+
+/home/fabio/Escritorio/arboles/node.h
+
