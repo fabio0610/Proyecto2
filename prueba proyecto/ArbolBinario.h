@@ -12,10 +12,7 @@ public:
     // CONSTRUCTORES
     ArbolBinarioInverso(){};
     ArbolBinarioInverso(int i){
-
-
         this->size=i;
-
         this->level = log2(i);
         this->arbol = new Nodo<Equipo>[i];
         for(int n = 0; n<i;n++){

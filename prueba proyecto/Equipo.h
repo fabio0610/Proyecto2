@@ -7,7 +7,7 @@ class Equipo{
 public:
     // CONSTRUCTORES
     Equipo() {
-        this->Name= " ";
+        this->Name= "";
         this->id= 0;
         this->puntaje=0;
     }
