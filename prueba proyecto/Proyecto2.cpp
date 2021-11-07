@@ -9,6 +9,16 @@ using namespace std;
 
 vector<Equipo*> Equipos;
 
+bool verificador(ArbolBinarioInverso* arbol,int i){
+    bool ver=false;
+    if(i>0&&i<=arbol->size){
+        ver= true;
+    }else{
+        ver=false;
+    }
+    return ver;
+}
+
 bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
 {
     for(int i=0; i<arbol->size; i++)
@@ -63,55 +73,118 @@ if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) {
     return Nuevo_puntaje;
 }
 
-void Ingre_ganador(ArbolBinarioInverso* arbol,int Id){
-int i = arbol->size;
-int j = 0;
-int n=1;
-        for (int k = 0; k < arbol->size; k++) {
-            if (arbol->arbol[k].content->id == Id) {
-                arbol->arbol[k].parent->content = arbol->arbol[k].content;
-            }
+void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
+    int i = arbol->size;
+    int j = 0;
+    int n = 1;
+   /* for (int k = 0; k < arbol->size; k++) {
+        if (arbol->arbol[k].content->id == Id) {
+            arbol->arbol[k].parent->content = arbol->arbol[k].content;
         }
-    Nodo<Equipo> *nodo1;
-    Nodo<Equipo> *nodo2;
+    }*/
+
+    Nodo <Equipo> *nodo1;
+    Nodo <Equipo> *nodo2;
     Equipo *parent1;
     Equipo *parent2;
-    i=i/2;
+    //i = i / 2;
 
-    while (i!=1) {
-        for (int k = 0; k < i / 2; k++) {
+    while (i != 1) {
+        for (int k = 0; k < i/2 ; k++) {
             if (i <= (arbol->size) / 4) {
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
-                if(nodo1!=NULL||nodo2!=NULL) {
-                    if(nodo1!=NULL) {
-                        if (arbol->arbol[j].content->id == Id) {
-                            nodo1->content = arbol->arbol[j].content;
-                        }
-                    }if(nodo2!=NULL) {
-                        if (arbol->arbol[j + 2].content->id == Id) {
-                            nodo2->content = arbol->arbol[j + 2].content;
+                for (int m = 0; m < n; m++) {
+                    nodo1 = nodo1->parent;
+                    nodo2 = nodo2->parent;
+                }
+                n++;
+            } else if (i == (arbol->size) / 2) {
+                nodo1 = arbol->arbol[j].parent;
+                nodo2 = arbol->arbol[j + 2].parent;
+                if (nodo1 != NULL || nodo2 != NULL) {
+                    if (nodo1->parent == NULL) {
+                        if (nodo1->content->id == Id) {
+                            nodo1->parent=new Nodo<Equipo>;
+                            nodo1->parent->content = nodo1->content;
                         }
                     }
-                    for (int m = 0; m < n; m++) {
-                        nodo1 = nodo1->parent;
-                        nodo2 = nodo2->parent;
+                    if (nodo2->parent == NULL) {
+                        if (nodo2->content->id== Id) {
+                            nodo2->parent=new Nodo<Equipo>;
+                            nodo2->parent->content=nodo2->content;
+                        }
                     }
-                    n++;
+                }
+            }else {
+                nodo1 = &arbol->arbol[j];
+                nodo2 = &arbol->arbol[j + 1];
+                if (verificador(arbol,nodo1->parent->content->id) == false) {
+                    if (nodo1->content->id == Id) {
+                        nodo1->parent=new Nodo<Equipo>;
+                        nodo1->parent->content = nodo1->content;
+
+                    }
+                }
+                if (verificador(arbol,nodo2->parent->content->id)==false) {
+                    if (nodo2->content->id== Id) {
+                        nodo2->parent=new Nodo<Equipo>;
+                        nodo2->parent->content=nodo2->content;
+
+                    }
                 }
             }
-            j=j+4;
+
+
+            if (i  <arbol->size){
+                j = j + 4;
+            }else{
+                j = j + 2;
+            }
         }
-        j=0;
-        i=i/2;
+        j = 0;
+        i = i / 2;
     }
 }
 
 void choque_contendientes(int Id1, int Id2){
+/* if(nodo1.content.id==id1 || nodo2.content.id==id1 ||nodo1.content.id==id2 || nodo2.content.id==id2){
+     * if(nodo1.content.id == id1 && nodo2.content.id ==id2){
+     * mostrsr llave();
+     * break;
+     * }else{
+     * ganan los dos encuentos;
+     * }
+     * }else{
+     *
+     * int nuimero =rand%1000;
+     * numero%2 ==0;
+     * ganada id 1
+     * else ganda id2
+     * }
+     *
+     *
+     *
+     * */
 
+
+//va logica de recorrido
 }
 
 void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
+    /* if(nodo1.content.id==id || nodo2.content.id==id){
+     * gana
+     * }else{
+     *
+     * int nuimero =rand%1000;
+     * numero%2 ==0;
+     * ganada id 1
+     * else ganda id2
+     * }
+     *
+     *
+     *
+     * */
     int i = arbol->size;
     int j = 0;
     int n=1;
@@ -156,15 +229,7 @@ void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
 
 }
 
-bool verificador(ArbolBinarioInverso* arbol,int i){
-    bool ver=false;
-    if(i>0&&i<=arbol->size){
-        ver= true;
-    }else{
-        ver=false;
-    }
-    return ver;
-}
+
 
 void mostrar_llave(ArbolBinarioInverso* arbol){
     int i = arbol->size;
@@ -234,16 +299,18 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
         cout << "  ";
         i=i/2;
     }
-    //********************
-    if(nodo1 == NULL || nodo2==NULL){
+
+    if(nodo1->parent == NULL || nodo2->parent==NULL){
         cout<<"N/A";
         cout << "\t";
     }else{
+        if(nodo1->parent != NULL || nodo2->parent != NULL){
+            cout<<nodo1->content->id;
+            cout << "\t";
+        }
 
-        cout<<arbol->arbol[i].parent->content->id;
-        cout << "\t";
     }
-    //*******************************
+
     cout<<endl;
 }
 
