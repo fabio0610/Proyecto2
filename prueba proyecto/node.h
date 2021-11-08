@@ -1,17 +1,20 @@
+//Node .h
+//Definicion de Nodo
 #ifndef NODO
 #define NODO
+//creacion de plantilla para utilizacion de nodo
 template <typename T>
-class Nodo{
+//clase Nodo
+class Nodo{ //inicio de la clase
     public:
-    // CONSTRUCTORES
+    // CREACION DE CONSTRUCTOREs
     Nodo(){
         this->content = new T();
         this->parent = nullptr;
     };
     ~Nodo(){};
-    // PROPIEDADES
+    // PROPIEDADES DE LA CLASE 
     T* content;
     Nodo* parent;
-    // METODOS
 };
 #endif
