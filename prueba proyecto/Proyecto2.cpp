@@ -27,42 +27,59 @@ bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
     return false;
 }
 
+// Funcion de administracion de contendientes
 void admin_contendientes(ArbolBinarioInverso* arbol){
-    srand(time(NULL));
-    int vec[arbol->size];
+    srand(time(NULL));//Es el encargado de que la funcion rand sea aleatoria siempre
+    int vec[arbol->size];//vector
     int puntaje=0;
     int id=0;
     string nombre=" ";
     int j=0;
-    for (int k = 0 ; k<(arbol->size)/2 ;k++) {
+    
+    /*for se va a repetir hasta que el arbol complete el tamaño asignado y este lo
+	va a recorrer de 2 en 2 para la asignacion de las propiedades según como estan en el constructor
+    */
+	for (int k = 0 ; k<(arbol->size)/2 ;k++) {
+    	//primer equipo, se le coloca un papá
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
         cin >> puntaje;
-        do
+        
+        //Para que simepre se generen un id unico, entre 1 y el tamaño de arbol
+		do
             id = 1 + rand() % arbol->size;
         while (checkrep(id, vec, arbol));
         vec[j] = id;
+        
+        //Asignacion de las variables ingresadas a cada uno de los atribujos correspondientes 
         arbol->arbol[j].content->id = id;
         arbol->arbol[j].content->Name = nombre;
         arbol->arbol[j].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j].content);
+        
+		//se crear el segundo equipo y va a tener el mismo papá que el anterior
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
         cin >> puntaje;
+        
+        // para que simepre se generen un id unico y entre 1 y el tamaño de arbol
         do
             id = 1 + rand() % arbol->size;
         while (checkrep(id, vec, arbol));
         vec[j + 1] = id;
+        /*Asignacion de las variables ingresadas a cada uno de los atributos correspondientes*/
         arbol->arbol[j + 1].content->id = id;
         arbol->arbol[j + 1].content->Name = nombre;
         arbol->arbol[j + 1].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j+1].content);
+        //Para que el j cambie y siga llenandose el arbol
         j=j+2;
     }
 }
 
+//funcion de clucular puntaje
 int calc_puntaje(ArbolBinarioInverso* arbol, int id){
 int Nuevo_puntaje;
 if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) {
