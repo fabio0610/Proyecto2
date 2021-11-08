@@ -1,16 +1,11 @@
-//Equipo .h
-
-//definicion de equipo
 #ifndef EQUIPO
 #define EQUIPO
-//inclusion de librerias
 #include <iostream>
 #include <string>
 using namespace::std;
-//Clase Equipo
-class Equipo{ //inicio de la clase
+class Equipo{
 public:
-    // CREACION DE CONSTRUCTORES 
+    // CONSTRUCTORES
     Equipo() {
         this->Name= "";
         this->id= 0;
@@ -20,10 +15,11 @@ public:
     Equipo(int id, const string &name, int puntaje) : id(id), Name(name), puntaje(puntaje) {}
 
     ~Equipo(){};
-    // PROPIEDADES DE LA CLASE 
+    // PROPIEDADES
     int id;
     string Name;
     int puntaje;
+    // METODOS
 };
 
 #endif

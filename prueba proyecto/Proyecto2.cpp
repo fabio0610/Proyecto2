@@ -8,6 +8,18 @@
 using namespace std;
 
 vector<Equipo*> Equipos;
+bool verificador(ArbolBinarioInverso* arbol,int i);
+bool checkrep(int n, int num[], ArbolBinarioInverso* arbol);
+void admin_contendientes(ArbolBinarioInverso* arbol);
+int calc_puntaje(ArbolBinarioInverso* arbol, int id);
+void Ingre_ganador(ArbolBinarioInverso* arbol,int Id);
+void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2);
+void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id);
+void mostrar_llave(ArbolBinarioInverso* arbol);
+void bubbleSort();
+void mostrar_contendientes();
+
+
 
 bool verificador(ArbolBinarioInverso* arbol,int i){
     bool ver=false;
@@ -77,17 +89,11 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
     int i = arbol->size;
     int j = 0;
     int n = 1;
-   /* for (int k = 0; k < arbol->size; k++) {
-        if (arbol->arbol[k].content->id == Id) {
-            arbol->arbol[k].parent->content = arbol->arbol[k].content;
-        }
-    }*/
-
     Nodo <Equipo> *nodo1;
     Nodo <Equipo> *nodo2;
     Equipo *parent1;
     Equipo *parent2;
-    //i = i / 2;
+
 
     while (i != 1) {
         for (int k = 0; k < i/2 ; k++) {
@@ -149,88 +155,150 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
         j = 0;
         i = i / 2;
     }
+    calc_puntaje(arbol, Id);
 }
 
-void choque_contendientes(int Id1, int Id2){
-/* if(nodo1.content.id==id1 || nodo2.content.id==id1 ||nodo1.content.id==id2 || nodo2.content.id==id2){
-     * if(nodo1.content.id == id1 && nodo2.content.id ==id2){
-     * mostrsr llave();
-     * break;
-     * }else{
-     * ganan los dos encuentos;
-     * }
-     * }else{
-     *
-     * int nuimero =rand%1000;
-     * numero%2 ==0;
-     * ganada id 1
-     * else ganda id2
-     * }
-     *
-     *
-     *
-     * */
-
-
-//va logica de recorrido
-}
-
-void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
-    /* if(nodo1.content.id==id || nodo2.content.id==id){
-     * gana
-     * }else{
-     *
-     * int nuimero =rand%1000;
-     * numero%2 ==0;
-     * ganada id 1
-     * else ganda id2
-     * }
-     *
-     *
-     *
-     * */
+void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
+    srand(time(NULL));
     int i = arbol->size;
     int j = 0;
-    int n=1;
-    for (int k = 0; k < arbol->size; k++) {
-        if (arbol->arbol[k].content->id == Id) {
-            arbol->arbol[k].parent->content = arbol->arbol[k].content;
-        }
-    }
-    Nodo<Equipo> *nodo1;
-    Nodo<Equipo> *nodo2;
+    int n = 1;
+    int numero=0;
+    Nodo <Equipo> *nodo1;
+    Nodo <Equipo> *nodo2;
     Equipo *parent1;
     Equipo *parent2;
-    i=i/2;
 
-    while (i!=1) {
-        for (int k = 0; k < i / 2; k++) {
+
+    while (i != 1) {
+        for (int k = 0; k < i/2 ; k++) {
             if (i <= (arbol->size) / 4) {
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
-                if(nodo1!=NULL||nodo2!=NULL) {
-                    if(nodo1!=NULL) {
-                        if (arbol->arbol[j].content->id == Id) {
-                            nodo1->content = arbol->arbol[j].content;
-                        }
-                    }if(nodo2!=NULL) {
-                        if (arbol->arbol[j + 2].content->id == Id) {
-                            nodo2->content = arbol->arbol[j + 2].content;
-                        }
+                for (int m = 0; m < n; m++) {
+                    nodo1 = nodo1->parent;
+                    nodo2 = nodo2->parent;
+                }
+                n++;
+            } else if (i == (arbol->size) / 2) {
+                nodo1 = arbol->arbol[j].parent;
+                nodo2 = arbol->arbol[j + 2].parent;
+                if(nodo1->content->id==Id1||nodo1->content->id==Id2||nodo2->content->id==Id1||nodo2->content->id==Id2){
+                    if((nodo1->content->id==Id1&&nodo2->content->id==Id2)||(nodo1->content->id==Id2&&nodo2->content->id==Id1)){
+                        mostrar_llave(arbol);
+                        break;
+                    }else{
+                        Ingre_ganador(arbol, Id1);
+                        Ingre_ganador(arbol, Id2);
                     }
-                    for (int m = 0; m < n; m++) {
-                        nodo1 = nodo1->parent;
-                        nodo2 = nodo2->parent;
+                }else{
+                    numero=1 + rand() % 100;
+                    if(numero%2==0){
+                        Ingre_ganador(arbol, j);
+                    }else{
+                        Ingre_ganador(arbol, j+2);
                     }
-                    n++;
+                }
+            }else {
+                nodo1 = &arbol->arbol[j];
+                nodo2 = &arbol->arbol[j + 1];
+                if(nodo1->content->id==Id1||nodo1->content->id==Id2||nodo2->content->id==Id1||nodo2->content->id==Id2){
+                    if((nodo1->content->id==Id1&&nodo2->content->id==Id2)||(nodo1->content->id==Id2&&nodo2->content->id==Id1)){
+                        mostrar_llave(arbol);
+                        break;
+                    }else{
+                        Ingre_ganador(arbol, Id1);
+                        Ingre_ganador(arbol, Id2);
+                    }
+                }else{
+                    numero=1 + rand() % 100;
+                    if(numero%2==0){
+                        Ingre_ganador(arbol, j);
+                    }else{
+                        Ingre_ganador(arbol, j+1);
+                    }
                 }
             }
-            j=j+4;
+
+
+            if (i  <arbol->size){
+                j = j + 4;
+            }else{
+                j = j + 2;
+            }
         }
-        j=0;
-        i=i/2;
+        j = 0;
+        i = i / 2;
     }
 
+
+}
+
+void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
+
+    srand(time(NULL));
+    int i = arbol->size;
+    int j = 0;
+    int n = 1;
+    int numero=0;
+    Nodo <Equipo> *nodo1;
+    Nodo <Equipo> *nodo2;
+    Equipo *parent1;
+    Equipo *parent2;
+
+
+    while (i != 1) {
+        for (int k = 0; k < i/2 ; k++) {
+            if (i <= (arbol->size) / 4) {
+                nodo1 = arbol->arbol[j].parent;
+                nodo2 = arbol->arbol[j + 2].parent;
+                for (int m = 0; m < n; m++) {
+                    nodo1 = nodo1->parent;
+                    nodo2 = nodo2->parent;
+                }
+                n++;
+            } else if (i == (arbol->size) / 2) {
+                nodo1 = arbol->arbol[j].parent;
+                nodo2 = arbol->arbol[j + 2].parent;
+                nodo1 = &arbol->arbol[j];
+                nodo2 = &arbol->arbol[j + 1];
+                if(nodo1->content->id==Id||nodo1->content->id==Id){
+                    Ingre_ganador(arbol, Id);
+
+                }else{
+                    numero=1 + rand() % 100;
+                    if(numero%2==0){
+                        Ingre_ganador(arbol, j);
+                    }else{
+                        Ingre_ganador(arbol, j+2);
+                    }
+                }
+            }else {
+                nodo1 = &arbol->arbol[j];
+                nodo2 = &arbol->arbol[j + 1];
+                if(nodo1->content->id==Id||nodo1->content->id==Id){
+                        Ingre_ganador(arbol, Id);
+
+                }else{
+                    numero=1 + rand() % 100;
+                    if(numero%2==0){
+                        Ingre_ganador(arbol, j);
+                    }else{
+                        Ingre_ganador(arbol, j+1);
+                    }
+                }
+            }
+
+
+            if (i  <arbol->size){
+                j = j + 4;
+            }else{
+                j = j + 2;
+            }
+        }
+        j = 0;
+        i = i / 2;
+    }
 }
 
 
@@ -391,7 +459,7 @@ int menu_B(){
 }
 
 void menu1(ArbolBinarioInverso* arbol){
-    int id=0;
+    int id=0, id2=0;
     int opcion_seleccionada = 0;
     do{
         opcion_seleccionada = menu_B();
@@ -403,8 +471,16 @@ void menu1(ArbolBinarioInverso* arbol){
                 Ingre_ganador(arbol,id);
                 break;
             case 2:
+                cout<<"Ingrese el primer ID "<<endl;
+                cin>>id;
+                cout<<"Ingrese el segundo ID "<<endl;
+                cin>>id2;
+                choque_contendientes(arbol, id, id2);
                 break;
             case 3:
+                cout<<"Ingrese el ID del equipo que simule ser ganador"<<endl;
+                cin>>id;
+                Puntaje_campeon(arbol, id);
                 break;
             case 4:
                 mostrar_llave(arbol);

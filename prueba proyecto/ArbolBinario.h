@@ -1,6 +1,3 @@
-//Arbol .h
-
-//inclusion de librerias
 #include "Equipo.h"
 #include <iostream>
 #include <string>
@@ -8,35 +5,32 @@
 #include <ctime>
 #include "node.h"
 using namespace::std;
-//definicion de arbol binario
 #ifndef ARBOLBINARIO
 #define ARBOLBINARIO
-
-//Clase arbol binario inverso
-class ArbolBinarioInverso{ //inicio de la clase
+class ArbolBinarioInverso{
 public:
-    // CREACION DE LOS CONSTRUCTORES
-    ArbolBinarioInverso(){}; 
-    ArbolBinarioInverso(int i){ //recibe como parametro la cantidad de hijos (equipos totales)
-        this->size=i; //asignacion de variable tamaño el numero recibido como parametro
-        this->level = log2(i); //asignacion de la potencia de 2 para la cantidad de niveles del arbol
-        this->arbol = new Nodo<Equipo>[i]; //creacion del nodo arbol 
-        for(int n = 0; n<i;n++){ //for para inicializar los nodos
+    // CONSTRUCTORES
+    ArbolBinarioInverso(){};
+    ArbolBinarioInverso(int i){
+        this->size=i;
+        this->level = log2(i);
+        this->arbol = new Nodo<Equipo>[i];
+        for(int n = 0; n<i;n++){
             this->arbol[n].content = new Equipo();
         }
-        while (i != 1 ){ //ciclo que recorre todos los niveles del arbol desde n hasta 0
+        while (i != 1 ){
         int j = 0;
-        for (int k = 0 ; k<i/2 ;k++){ //for para recorrer el arbol de 2 en 2
-            Nodo<Equipo>* Parent = new Nodo<Equipo>(); //inicializacion de los padres de los equipos (nodos inferiores)
-            this->arbol[j].parent = Parent; //asignacion a arbol en posicion j el mismo padre
-            this->arbol[j+1].parent = Parent; //asignacion a arbol en posicion j+1 el mismo padre 
-            j=j+2; //aumento de j en dos posiciones
+        for (int k = 0 ; k<i/2 ;k++){
+            Nodo<Equipo>* Parent = new Nodo<Equipo>();
+            this->arbol[j].parent = Parent;
+            this->arbol[j+1].parent = Parent;
+            j=j+2;
         }
-            i=i/2; //disminucion del nivel
+            i=i/2;
         }
     };
     ~ArbolBinarioInverso(){};
-    // PROPIEDADES DE LA CLASE
+    // PROPIEDADES
     int level;
     int size;
     int id;
@@ -44,6 +38,29 @@ public:
     string nombre;
 
     Nodo<Equipo>* arbol;
+    // METODOS
+    bool checkrep(int n, int num[])
+    {
+        for(int i=0; i<this->size; i++)
+            if(n == num[i])
+                return true;
+        return false;
+    }
 
+
+    void print(){
+        int i =this->size;
+        while (i != 1 ){
+            int j = 0;
+            for (int k = 0 ; k<i/2 ;k++){
+                cout << this->arbol[j].content->id << ":" << this->arbol[j+1].content->id;
+                cout << "\t";
+                j=j+2;
+            }
+            cout << endl;
+            i=i/2;
+        }
+        cout << "ganador";
+    }
 };
 #endif
