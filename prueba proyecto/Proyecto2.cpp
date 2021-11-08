@@ -104,15 +104,19 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
                 nodo2 = arbol->arbol[j + 2].parent;
                 if (nodo1 != NULL || nodo2 != NULL) {
                     if (nodo1->parent == NULL) {
-                        if (nodo1->content->id == Id) {
-                            nodo1->parent=new Nodo<Equipo>;
-                            nodo1->parent->content = nodo1->content;
+                            if (nodo1->content->id == Id) {
+                                nodo1->parent = new Nodo<Equipo>;
+                                if (verificador(arbol,nodo1->parent->content->id) == false) {
+                                nodo1->parent->content = nodo1->content;
+                            }
                         }
                     }
                     if (nodo2->parent == NULL) {
                         if (nodo2->content->id== Id) {
-                            nodo2->parent=new Nodo<Equipo>;
-                            nodo2->parent->content=nodo2->content;
+                                nodo2->parent = new Nodo<Equipo>;
+                            if (verificador(arbol, nodo2->parent->content->id) == false) {
+                                nodo2->parent->content = nodo2->content;
+                            }
                         }
                     }
                 }
@@ -300,11 +304,11 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
         i=i/2;
     }
 
-    if(nodo1->parent == NULL || nodo2->parent==NULL){
+    if(nodo1== NULL || nodo2==NULL){
         cout<<"N/A";
         cout << "\t";
     }else{
-        if(nodo1->parent != NULL || nodo2->parent != NULL){
+        if(nodo1 != NULL || nodo2 != NULL){
             cout<<nodo1->content->id;
             cout << "\t";
         }
