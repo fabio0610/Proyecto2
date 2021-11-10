@@ -41,10 +41,10 @@ bool verificador(ArbolBinarioInverso* arbol,int i){
 -Objetivo: La funcion se usa para verificar si el numero entero que ingresa no sea repetido
 -Se ingresa en la funcion un puntero al arbol binario inverso, un entero y un vector
 */
-bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
+bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)//se recibe un entero un vector y un puntero a arbol binario
 {
     for(int i=0; i<arbol->size; i++)
-        if(n == num[i])
+        if(n == num[i]) // se recorre el vector y se verifica que el numero ingresado sea igual a alguna posicion del vector
             return true;
     return false;
 }
@@ -112,13 +112,13 @@ durante cada torneo
 -Se ingresa en la funcion un puntero al arbol binario inverso y un entero
 */
 int calc_puntaje(ArbolBinarioInverso* arbol, int id){
-int Nuevo_puntaje;
-if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) {
-    Nuevo_puntaje = arbol->arbol[id].content->puntaje + (1 + (arbol->arbol[id+1].content->puntaje)/arbol->arbol[id].content->puntaje);
-}else if(arbol->arbol[id-1].parent == arbol->arbol[id].parent){
-    Nuevo_puntaje = arbol->arbol[id].content->puntaje + (1 + (arbol->arbol[id-1].content->puntaje)/arbol->arbol[id].content->puntaje);
+int Nuevo_puntaje; // Se crea el entero que almacenará el calculo de nuevo pntaje
+if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) { // se hace la verificación si "id" y "id +1 " poseen el mismo "papá"
+    Nuevo_puntaje = arbol->arbol[id].content->puntaje + (1 + (arbol->arbol[id+1].content->puntaje)/arbol->arbol[id].content->puntaje); // de ser ese el caso se hace el recalculo de puntaje tomando como quipo perdedor "id + 1"
+}else if(arbol->arbol[id-1].parent == arbol->arbol[id].parent){// se hace la verificación si "id" y "id -1 " poseen el mismo "papá"
+    Nuevo_puntaje = arbol->arbol[id].content->puntaje + (1 + (arbol->arbol[id-1].content->puntaje)/arbol->arbol[id].content->puntaje); // de ser ese el caso se hace el recalculo de puntaje tomando como quipo perdedor "id - 1"
 }
-    return Nuevo_puntaje;
+    return Nuevo_puntaje; // se retorna el nuevo puntaje calculado
 }
 
 /* 
@@ -128,7 +128,7 @@ el puntaje
 -Se ingresa en la funcion un puntero al arbol binario inverso y un entero
 */
 void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
-    //
+    // se crean las variables a utilizar
     int i = arbol->size;
     int j = 0;
     int n = 1;
@@ -137,29 +137,34 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
     Equipo *parent1;
     Equipo *parent2;
 
-
-    while (i != 1) {
-        for (int k = 0; k < i/2 ; k++) {
-            if (i <= (arbol->size) / 4) {
+// se inicia la lógica de recorrido del arbol
+    while (i != 1) { // el while verificará que "i" sea disitnto de 1
+        for (int k = 0; k < i/2 ; k++) { //for para recorrer el arbol de 2 en 2
+            if (i <= (arbol->size) / 4) { // en caso de que "i" sea menor que el tamaño del arbol entre 4 ejecuta lo que posee el if
+                // los nodos tipo equipo se les asignan los parents de los arboles en la posición "j" y "j+2"
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
-                for (int m = 0; m < n; m++) {
+                for (int m = 0; m < n; m++) { // es el encargado de subir de nivel en el arbol
+                    // se asigna en los nodos el papá del papá
                     nodo1 = nodo1->parent;
                     nodo2 = nodo2->parent;
                 }
-                n++;
-            } else if (i == (arbol->size) / 2) {
+                n++; // se aumenta en 1 a n
+            } else if (i == (arbol->size) / 2) {// en caso de que "i" sea menor que el tamaño del arbol entre 2 ejecuta lo que posee el if
+                // los nodos tipo equipo se les asignan los parents de los arboles en la posición "j" y "j+2"
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
+                // aqui primero se verifica que los nodos no esten nulos
                 if (nodo1 != NULL || nodo2 != NULL) {
-                    if (nodo1->parent == NULL) {
-                            if (nodo1->content->id == Id) {
-                                nodo1->parent = new Nodo<Equipo>;
-                                if (verificador(arbol,nodo1->parent->content->id) == false) {
-                                nodo1->parent->content = nodo1->content;
+                    if (nodo1->parent == NULL) {// se verifica que el padre del nodo sea nulo
+                            if (nodo1->content->id == Id) { // de ser el caso se verifica que el id sea igual al id ingresado por parametro
+                                nodo1->parent = new Nodo<Equipo>; // se inicializa el padre del nodo
+                                if (verificador(arbol,nodo1->parent->content->id) == false) {//se verficia que el "id" del padre inicializado esté entre los id's validos
+                                nodo1->parent->content = nodo1->content; // se le asigna al padre el contenido del nodo
                             }
                         }
                     }
+                    // para este caso se hace exactemente lo mismo que se explicó para el nodo1 pero para el nodo 2
                     if (nodo2->parent == NULL) {
                         if (nodo2->content->id== Id) {
                                 nodo2->parent = new Nodo<Equipo>;
@@ -169,16 +174,18 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
                         }
                     }
                 }
-            }else {
+            }else {// de no cumplirse que i sea menor que el tamaño del arbol entre 4 o entre 2 entonces entra este else
+                // se asigna a nodo1 y nodo2 la referencia del arbol en la posición j y j+1
                 nodo1 = &arbol->arbol[j];
                 nodo2 = &arbol->arbol[j + 1];
-                if (verificador(arbol,nodo1->parent->content->id) == false) {
-                    if (nodo1->content->id == Id) {
-                        nodo1->parent=new Nodo<Equipo>;
-                        nodo1->parent->content = nodo1->content;
+                if (verificador(arbol,nodo1->parent->content->id) == false) { // se verifica que el id que contiene el padre del nodo no esté entre los id's permitidos
+                    if (nodo1->content->id == Id) {// se verifica que el id del contenido sea igual alingresado por parámetro
+                        nodo1->parent=new Nodo<Equipo>;// se inicializa el padre
+                        nodo1->parent->content = nodo1->content; // se le asigna el contenido del nodo al padre
 
                     }
                 }
+                // se hace exactamente el mismo proceso pero para el nodo2
                 if (verificador(arbol,nodo2->parent->content->id)==false) {
                     if (nodo2->content->id== Id) {
                         nodo2->parent=new Nodo<Equipo>;
@@ -189,16 +196,16 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
             }
 
 
-            if (i  <arbol->size){
+            if (i  <arbol->size){// si "i" es menor que arbol size entonces j aumenta en 4 si no este aumenta en 2
                 j = j + 4;
             }else{
                 j = j + 2;
             }
         }
-        j = 0;
-        i = i / 2;
+        j = 0; //se reinicia j
+        i = i / 2; // se va disminuyendo i en su mitad
     }
-    calc_puntaje(arbol, Id);
+    calc_puntaje(arbol, Id); // se hace recálculo de puntaje
 }
 
 /* 
@@ -208,7 +215,10 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
 y el (ID del segundo)
 */
 void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
-    srand(time(NULL));
+    /* Como se explico en el método de Ingre_ganador
+     * la lógica que se encuentra de recorrido del arbol
+    */
+    srand(time(NULL));//linea encargada de escoger aleatorio siempre
     int i = arbol->size;
     int j = 0;
     int n = 1;
@@ -232,15 +242,17 @@ void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
             } else if (i == (arbol->size) / 2) {
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
-                if(nodo1->content->id==Id1||nodo1->content->id==Id2||nodo2->content->id==Id1||nodo2->content->id==Id2){
-                    if((nodo1->content->id==Id1&&nodo2->content->id==Id2)||(nodo1->content->id==Id2&&nodo2->content->id==Id1)){
-                        mostrar_llave(arbol);
+                if(nodo1->content->id==Id1||nodo1->content->id==Id2||nodo2->content->id==Id1||nodo2->content->id==Id2){// se verifica que alguno de los nodos tenga los id's ingresados por parametros
+                    if((nodo1->content->id==Id1&&nodo2->content->id==Id2)||(nodo1->content->id==Id2&&nodo2->content->id==Id1)){// se verifica que los nodos 1 y 2 tengan los id's ingresados
+                        mostrar_llave(arbol); //de ser el caso se muestra el arbol donde los contendientes estan en el choque entre si
                         break;
                     }else{
+                        //de no entrar se le dice al programa que ambos equipos ganen los partidos que estén jugando
                         Ingre_ganador(arbol, Id1);
                         Ingre_ganador(arbol, Id2);
                     }
-                }else{
+                }else{//se ser el caso que sea un partido en el que no estén ni id1 ni id2
+                    // se hace que aleatoriamente se escoja un ganador
                     numero=1 + rand() % 100;
                     if(numero%2==0){
                         Ingre_ganador(arbol, j);
@@ -249,6 +261,7 @@ void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
                     }
                 }
             }else {
+                //se hace el mismo procedimiento que arriba solo que para el nivel más bajo del arbol
                 nodo1 = &arbol->arbol[j];
                 nodo2 = &arbol->arbol[j + 1];
                 if(nodo1->content->id==Id1||nodo1->content->id==Id2||nodo2->content->id==Id1||nodo2->content->id==Id2){
@@ -289,7 +302,9 @@ void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
 -Se ingresa en la funcion un puntero al arbol binario inverso y un entero (equipo para la simulacion)
 */
 void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
-
+    /* Como se explico en el método de Ingre_ganador
+        * la lógica que se encuentra de recorrido del arbol
+       */
     srand(time(NULL));
     int i = arbol->size;
     int j = 0;
@@ -314,12 +329,10 @@ void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
             } else if (i == (arbol->size) / 2) {
                 nodo1 = arbol->arbol[j].parent;
                 nodo2 = arbol->arbol[j + 2].parent;
-                nodo1 = &arbol->arbol[j];
-                nodo2 = &arbol->arbol[j + 1];
-                if(nodo1->content->id==Id||nodo1->content->id==Id){
-                    Ingre_ganador(arbol, Id);
+                if(nodo1->content->id==Id||nodo2->content->id==Id){// se verifica que el id ingresado sea igual que el que contiene nodo1 o nodo2
+                    Ingre_ganador(arbol, Id); //de ser el caso se hace el id ganador
 
-                }else{
+                }else{//de haber un enfrentamieto que no esté presnete id se eligente un ganador aleatorio
                     numero=1 + rand() % 100;
                     if(numero%2==0){
                         Ingre_ganador(arbol, j);
@@ -330,7 +343,8 @@ void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
             }else {
                 nodo1 = &arbol->arbol[j];
                 nodo2 = &arbol->arbol[j + 1];
-                if(nodo1->content->id==Id||nodo1->content->id==Id){
+                // se presente la misma lógica pero para el primer nivel
+                if(nodo1->content->id==Id||nodo2->content->id==Id){
                         Ingre_ganador(arbol, Id);
 
                 }else{
@@ -362,17 +376,20 @@ void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
 -Se ingresa en la funcion un puntero al arbol binario inverso
 */
 void mostrar_llave(ArbolBinarioInverso* arbol){
+    /* Como se explico en el método de Ingre_ganador
+        * la lógica que se encuentra de recorrido del arbol
+       */
     int i = arbol->size;
     int n = 1;
     int j = 0;
     for (int k = 0 ; k<i/2 ;k++){
-        cout << arbol->arbol[j].content->id << ":" << arbol->arbol[j+1].content->id;
+        cout << arbol->arbol[j].content->id << ":" << arbol->arbol[j+1].content->id;//se imprime el primer nivel del arbol
         cout << "\t";
-        j=j+2;
+        j=j+2;//se aumenta a j en 2
     }
     cout << endl;
     cout<<"  ";
-    i=i/2;
+    i=i/2;//se disminuye i a la mitad
     j=0;
     Nodo<Equipo> *nodo1;
     Nodo<Equipo> *nodo2;
@@ -393,9 +410,10 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
                 nodo2=arbol->arbol[j+2].parent;
             }
             if(nodo1 == NULL || nodo2==NULL){
-                if (nodo1 ==NULL&& nodo2==NULL){
+                if (nodo1 ==NULL&& nodo2==NULL){ //en caso de que ambos sean nulos se imprime que no hya info en ambos espacios
                     cout<<"N/A"<<":"<<"N/A";
                     cout << "\t";
+                    //luego se verifica si solo uno de los 2 es nulo entonces se imprime que no hay info en uno y en el otro se imprime el id
                 }else if(nodo2== NULL){
                     parent1=nodo1->content;
                     cout<<parent1->id<<":"<<"N/A";
@@ -408,6 +426,7 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
             }else {
                 parent1 = nodo1->content;
                 parent2 = nodo2->content;
+                // aqui se aplica exactmaente la misma logica explicada anteriormente para imprimir el ultimo
                 if (verificador(arbol, parent1->id) == false && verificador(arbol, parent2->id) == false) {
                     cout << "N/A" << ":" << "N/A";
                     cout << "\t";
@@ -429,7 +448,7 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
         cout << "  ";
         i=i/2;
     }
-
+// se imprime el padre total del arbol
     if(nodo1== NULL || nodo2==NULL){
         cout<<"N/A";
         cout << "\t";
@@ -445,7 +464,7 @@ void mostrar_llave(ArbolBinarioInverso* arbol){
 }
 
 
-
+//se implementa un ordenamiento de burbuja para el vector
 void bubbleSort()
 {
     int i,j;
@@ -469,7 +488,7 @@ void bubbleSort()
 -Objetivo: muestra todos los equipos en orden y los puntos de cada equipo
 */
 void mostrar_contendientes(){
-    bubbleSort();
+    bubbleSort();// se ordenan los equipos conforme a su puntaje
     cout<<"Lista contendientes:"<<endl;
     for (auto const &i: Equipos) {
         cout <<"El nombre del equipo es:"<< i->Name << endl;

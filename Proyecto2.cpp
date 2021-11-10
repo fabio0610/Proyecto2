@@ -14,6 +14,7 @@ void Ingre_ganador(int id){
     admin_contendientes(contendiente);
     calculo_puntaje(puntaje, ganador, perdedor);
 
+    calc_puntaje();
 }
 
 void choque_contendientes(int id1, int id2){
@@ -39,6 +40,10 @@ void mostrar_contendientes(){
 
 void calculo_puntaje(int puntaje, int perdedor, int ganador){
     admin_contendientes(contendiente, puntaje);
+
+}
+
+void calc_puntaje(){
 
 }
 
