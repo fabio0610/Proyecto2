@@ -7,6 +7,7 @@
 #include "ArbolBinario.h"
 using namespace std;
 
+//declaraciÃ³n de funciones
 vector<Equipo*> Equipos;
 bool verificador(ArbolBinarioInverso* arbol,int i);
 bool checkrep(int n, int num[], ArbolBinarioInverso* arbol);
@@ -39,7 +40,7 @@ bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
     return false;
 }
 
-// Funcion de administracion de contendientes
+
 void admin_contendientes(ArbolBinarioInverso* arbol){
     srand(time(NULL));//Es el encargado de que la funcion rand sea aleatoria siempre
     int vec[arbol->size];//vector
@@ -48,17 +49,17 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
     string nombre=" ";
     int j=0;
     
-    /*for se va a repetir hasta que el arbol complete el tamaño asignado y este lo
-	va a recorrer de 2 en 2 para la asignacion de las propiedades según como estan en el constructor
+    /*for se va a repetir hasta que el arbol complete el tamaï¿½o asignado y este lo
+	va a recorrer de 2 en 2 para la asignacion de las propiedades segï¿½n como estan en el constructor
     */
 	for (int k = 0 ; k<(arbol->size)/2 ;k++) {
-    	//primer equipo, se le coloca un papá
+    	//primer equipo, se le coloca un papï¿½
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
         cin >> puntaje;
         
-        //Para que simepre se generen un id unico, entre 1 y el tamaño de arbol
+        //Para que simepre se generen un id unico, entre 1 y el tamaï¿½o de arbol
 		do
             id = 1 + rand() % arbol->size;
         while (checkrep(id, vec, arbol));
@@ -70,13 +71,13 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
         arbol->arbol[j].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j].content);
         
-		//se crear el segundo equipo y va a tener el mismo papá que el anterior
+		//se crear el segundo equipo y va a tener el mismo papï¿½ que el anterior
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
         cin >> puntaje;
         
-        // para que simepre se generen un id unico y entre 1 y el tamaño de arbol
+        // para que simepre se generen un id unico y entre 1 y el tamaï¿½o de arbol
         do
             id = 1 + rand() % arbol->size;
         while (checkrep(id, vec, arbol));
@@ -87,11 +88,16 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
         arbol->arbol[j + 1].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j+1].content);
         //Para que el j cambie y siga llenandose el arbol
-        j=j+2;
+        j=j+2;c
     }
 }
 
-//funcion de clucular puntaje
+/* 
+-Funcion de calcular puntaje 
+-Objetivo: Se calcula el nuevo puntaje del ganador, y se acumularÃ¡
+durante cada torneo
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero
+*/
 int calc_puntaje(ArbolBinarioInverso* arbol, int id){
 int Nuevo_puntaje;
 if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) {
@@ -102,7 +108,14 @@ if(arbol->arbol[id].parent == arbol->arbol[id+1].parent) {
     return Nuevo_puntaje;
 }
 
+/* 
+-Funcion para ingresar ganador de partida
+-Objetivo: Mueve a la siguiente fase al equipo que se ingrese como ganador y se vuelve a calular 
+el puntaje
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero
+*/
 void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
+    //
     int i = arbol->size;
     int j = 0;
     int n = 1;
@@ -175,6 +188,12 @@ void Ingre_ganador(ArbolBinarioInverso* arbol,int Id) {
     calc_puntaje(arbol, Id);
 }
 
+/* 
+-Funcion de Choque de contendientes
+-Objetivo: Se enfrentan los dos equipos ingresados, se realizan los partidos que se deban hasta que choquen.
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero (ID del primer equipo) 
+y el (ID del segundo)
+*/
 void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
     srand(time(NULL));
     int i = arbol->size;
@@ -251,6 +270,11 @@ void choque_contendientes(ArbolBinarioInverso* arbol, int Id1, int Id2){
 
 }
 
+/* 
+-Funcion para el puntaje mÃ¡s alto
+-Objetivo: Calcula el puntaje mÃ¡s alto usando un cualquier equipo como ganador
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero (equipo para la simulacion)
+*/
 void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
 
     srand(time(NULL));
@@ -319,7 +343,11 @@ void Puntaje_campeon(ArbolBinarioInverso* arbol,int Id){
 }
 
 
-
+/* 
+-Funcion para mostrar el arbol o la llave del torneo
+-Objetivo: Muestra en pantalla el arbol actual del torneo y sus equipos
+-Se ingresa en la funcion un puntero al arbol binario inverso
+*/
 void mostrar_llave(ArbolBinarioInverso* arbol){
     int i = arbol->size;
     int n = 1;
@@ -423,6 +451,10 @@ void bubbleSort()
     }
 }
 
+/* 
+-Funcion para mostrar contendientes
+-Objetivo: muestra todos los equipos en orden y los puntos de cada equipo
+*/
 void mostrar_contendientes(){
     bubbleSort();
     cout<<"Lista contendientes:"<<endl;
@@ -435,6 +467,7 @@ void mostrar_contendientes(){
 }
 
 //acerca de
+//Informacion sobre el proyecto
 void acerca_de(){
     cout << "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*" << endl;
 	cout << "Instituto Tecnologico de Costa Rica." << endl;
@@ -451,6 +484,7 @@ void acerca_de(){
 }
 
 //funcion menu A -> primer menu
+//Llenado de arbol
 int menu_A(){
     int a;
     cout << "[MENU]" << endl;
@@ -463,6 +497,7 @@ int menu_A(){
 }
 
 //funcion menu B -> segundo menu
+//Menu con el arbol lleno
 int menu_B(){
     int b;
     cout << "1. Ingresar ganador de partida" << endl;
@@ -475,6 +510,7 @@ int menu_B(){
     return b;
 }
 
+//Menu con el arbol lleno
 void menu1(ArbolBinarioInverso* arbol){
     int id=0, id2=0;
     int opcion_seleccionada = 0;
@@ -511,6 +547,7 @@ void menu1(ArbolBinarioInverso* arbol){
     }while(opcion_seleccionada < 6);
 }
 
+//Funion del menu para llenar el arbol
 void menu(){
     int opcion_seleccionada = 0;
     int numCont=0;

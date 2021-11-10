@@ -4,20 +4,27 @@
 #include <string>
 using namespace std;
 
-void admin_contendientes(){
+void admin_contendientes(int contendiente, int puntaje){
+
 
 }
 
-void Ingre_ganador(){
+void Ingre_ganador(int id){
+     
+    admin_contendientes(contendiente);
+    calculo_puntaje(puntaje, ganador, perdedor);
 
 }
 
-void choque_contendientes(){
+void choque_contendientes(int id1, int id2){
+
+    mostrar_llave();
 
 }
 
-void Puntaje_campeon(){
+void Puntaje_campeon(int id ){
 
+    choque_contendientes(id1, id2);
 }
 
 void mostrar_llave(){
@@ -25,6 +32,13 @@ void mostrar_llave(){
 }
 
 void mostrar_contendientes(){
+
+    admin_contendientes();
+
+}
+
+void calculo_puntaje(int puntaje, int perdedor, int ganador){
+    admin_contendientes(contendiente, puntaje);
 
 }
 
