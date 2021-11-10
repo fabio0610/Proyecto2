@@ -21,7 +21,11 @@ void bubbleSort();
 void mostrar_contendientes();
 
 
-
+/* 
+-Funcion para la verificacion dentro del arbol
+-Objetivo: A la funcion toma el entero y realiza verificacion
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero
+*/
 bool verificador(ArbolBinarioInverso* arbol,int i){
     bool ver=false;
     if(i>0&&i<=arbol->size){
@@ -32,6 +36,11 @@ bool verificador(ArbolBinarioInverso* arbol,int i){
     return ver;
 }
 
+/* 
+-Funcion para la revision de repeticion
+-Objetivo: La funcion se usa para verificar si el numero entero que ingresa no sea repetido
+-Se ingresa en la funcion un puntero al arbol binario inverso, un entero y un vector
+*/
 bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
 {
     for(int i=0; i<arbol->size; i++)
@@ -40,7 +49,11 @@ bool checkrep(int n, int num[], ArbolBinarioInverso* arbol)
     return false;
 }
 
-
+/* 
+-Funcion para la adminitracion de contendientes
+-Objetivo: A la funcion toma los equipos, se pide la cantidad de equipos 
+-Se ingresa en la funcion un puntero al arbol binario inverso y un entero
+*/
 void admin_contendientes(ArbolBinarioInverso* arbol){
     srand(time(NULL));//Es el encargado de que la funcion rand sea aleatoria siempre
     int vec[arbol->size];//vector
@@ -53,7 +66,7 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
 	va a recorrer de 2 en 2 para la asignacion de las propiedades seg�n como estan en el constructor
     */
 	for (int k = 0 ; k<(arbol->size)/2 ;k++) {
-    	//primer equipo, se le coloca un pap�
+    	//primer equipo, se le coloca un papdre
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
@@ -71,7 +84,7 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
         arbol->arbol[j].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j].content);
         
-		//se crear el segundo equipo y va a tener el mismo pap� que el anterior
+		//se crear el segundo equipo y va a tener el mismo papdre que el anterior
         cout << "Ingrese el nombre del equipo" << endl;
         cin >> nombre;
         cout << "Ingrese el puntaje del equipo" << endl;
@@ -88,7 +101,7 @@ void admin_contendientes(ArbolBinarioInverso* arbol){
         arbol->arbol[j + 1].content->puntaje = puntaje;
         Equipos.push_back(arbol->arbol[j+1].content);
         //Para que el j cambie y siga llenandose el arbol
-        j=j+2;c
+        j=j+2;
     }
 }
 
